@@ -10,6 +10,7 @@ RAW_ZIP = DATA_RAW / "train_ver2.csv.zip"
 RAW_PARQUET = DATA_PROCESSED / "train_raw.parquet"
 CUSTOMER_MONTH = DATA_PROCESSED / "customer_month.parquet"
 TARGETS = DATA_PROCESSED / "targets.parquet"
+FEATURES = DATA_PROCESSED / "features.parquet"
 
 # Snapshot months run 2015-01-28 .. 2016-05-28 (one row per customer per month).
 # The split itself lives in sql/02_targets.sql; these mirror it for Python code.

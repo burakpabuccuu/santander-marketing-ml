@@ -4,7 +4,7 @@ Who should a retail bank's marketing team offer a credit card to next month, and
 
 This project builds cross-sell and churn models on 17 months of real (anonymised) retail banking data, measures them the way a bank would (Gini, lift, campaign ROI), and puts an LLM assistant on top that answers marketers' questions using the model scores and a product knowledge graph.
 
-> **Status:** work in progress. Ingestion, cleaning and target definitions are done and tested; modelling has not started.
+> **Status:** work in progress. Ingestion, cleaning, targets and features are done and tested; modelling has not started.
 
 ## Data
 
@@ -50,7 +50,7 @@ Both targets are rare (fewer than 1 in 150), so models are judged on Gini and on
 
 1. Ingestion: zip → Parquet *(done)*
 2. Cleaning, profiling and target definitions *(done)*
-3. Customer-month features in SQL: product history, 3-month changes, tenure, channel.
+3. Customer-month features in SQL *(done: snapshot and 1-6 month history, with a point-in-time test)*
 4. Logistic regression baseline and LightGBM; Gini, F1, lift by decile.
 5. Campaign ROI simulation and A/B test design with power analysis.
 6. Simple customer lifetime value.
@@ -66,7 +66,9 @@ uv sync
 uv run python -m santander.ingest        # zip -> data/processed/train_raw.parquet   (~40 s)
 uv run python -m santander.sql 01_clean  # typed customer-month table             (~10 s)
 uv run python -m santander.sql 02_targets # population, labels and split           (~5 s)
+uv run python -m santander.sql 03_features # snapshot and history features         (~10 s)
 uv run pytest
+uv run python -m santander.explore     # browse every table in the DuckDB web UI
 ```
 
 ## Layout

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import duckdb
 
-from santander.config import CUSTOMER_MONTH, RAW_PARQUET, ROOT, TARGETS
+from santander.config import CUSTOMER_MONTH, FEATURES, RAW_PARQUET, ROOT, TARGETS
 
 SQL_DIR = ROOT / "sql"
 
@@ -17,6 +17,7 @@ SQL_DIR = ROOT / "sql"
 STEPS: dict[str, dict[str, Path]] = {
     "01_clean": {"raw": RAW_PARQUET, "out": CUSTOMER_MONTH},
     "02_targets": {"customer_month": CUSTOMER_MONTH, "out": TARGETS},
+    "03_features": {"customer_month": CUSTOMER_MONTH, "targets": TARGETS, "out": FEATURES},
 }
 
 
